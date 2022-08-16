@@ -1,1 +1,3 @@
-print 
+print "Hello" 
+username = logincredentials_username
+password = logincredential_Password
