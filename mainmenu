@@ -2,13 +2,12 @@ print "Hello"
 
 username = #add a List
 password = #add a List
-Loginpass = #add a List
 currentMenuState = 'login'
 
 while currentMenuState == 'login':
   userLoginName = str(input("Enter your username: "))
   userLoginPassword = str(input("Enter the password for the account"))
-  if userLoginName != username and password != Loginpass or userLoginName == username and password != Loginpass or userLoginName != username and password == Loginpass:
+  if userLoginName != username and userLoginPassword != password or userLoginName == username and userLoginPassword != password or userLoginName != username and userLoginPassword == password:
         print("Username or Password Error")
         continue
   else:
