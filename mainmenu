@@ -14,3 +14,30 @@ while currentMenuState == 'login':
         currentMenuState = 'menu'
         print ('You have successfully login')
         print ("Hello", str(userLoginName) "Welcome to the Tenant Management System.")
+
+if userLoginName == username and userLoginPassword == password:
+  while True:
+    print("1. Get Data")
+    print("2. Save Date")
+    print("3. Print report")
+    print("4. Viewing")
+    print("5. Modify")
+    print("6. Close")
+    Operation = input("Enter choice from 1-6: ")
+    if Operation == "1"
+      GetData()
+      continue
+    elif Operation == "2"
+      SaveData()
+      continue
+    elif Operation == "3"
+      PrintReport()
+      continue
+    elif Operation == "4"
+      View()
+      continue
+    elif Operation == "5"
+      Modify()
+      continue
+    elif Operation == "6"
+      break
