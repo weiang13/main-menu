@@ -1,3 +1,17 @@
 print "Hello" 
-username = logincredentials_username
-password = logincredential_Password
+
+username = #add a List
+password = #add a List
+Loginpass = #add a List
+currentMenuState = 'login'
+
+while currentMenuState == 'login':
+  userLoginName = str(input("Enter your username: "))
+  userLoginPassword = str(input("Enter the password for the account"))
+  if userLoginName != username and password != Loginpass or userLoginName == username and password != Loginpass or userLoginName != username and password == Loginpass:
+        print("Username or Password Error")
+        continue
+  else:
+        currentMenuState = 'menu'
+        print ('You have successfully login')
+        print ("Hello", str(userLoginName) "Welcome to the Tenant Management System.")
