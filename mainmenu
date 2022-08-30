@@ -41,3 +41,187 @@ if userLoginName == username and userLoginPassword == password:
       continue
     elif Operation == "6"
       break
+      
+      
+      
+      
+      
+      
+def isNameValid(mName):
+    mName = mName.strip()
+    if len(mName) < 1:
+        return False
+    for character in mName:
+        if character.isdigit():
+            return False
+
+    return True
+
+def getName():
+
+    name = None
+    while True:
+        name = input("Enter Your Name")
+
+        if not isNameValid(name):
+            print("Invalid to Input....Press any key to continue, [X] to Logout")
+            choice = input("[C/X]")
+            if choice == "X":
+                break
+            else:
+                continue
+    return name
+
+def getData(tenantlist):
+
+    record=[]
+    while True:
+
+    name = getName()
+    IC = getIC
+    PN = getPN
+    gender = get
+
+    IC_number = input("Enter Your IC")
+    PN = input("Enter Your Phone Number")
+    gender = input("Enter Gender")
+    email = input("Enter Your Email")
+    POB = input("Enter Your Place Or Birth")
+    COB = input("Enter Your City Of Birth")
+
+    record.append(name)
+    record.append(IC_number)
+    record.append(PN)
+    record.append(email)
+    record.append(POB)
+    record.append(COB)
+    tenantlist.append(record)
+
+    return tenantlist
+
+def saveData(tenantlist):
+    pass
+ #   with open (not)
+  #      for record in tenantlist:
+   #         for item in record
+
+def modifiedData
+
+    pass 
+
+def printReport
+
+    pass
+
+def loadData():    
+
+    tenantlist=[]
+    with open("tntList.txt","r") as loadFile:
+        for record in loadFile.readlines():
+            recordAsList = record.split(",")
+            tenantlist.append(recordAsList)
+
+    return tenantlist
+
+def mainMenu():
+    masterData = loadData()
+
+    while True:
+        print("1. Get Data")
+        print("2. Sava Data")
+        print("3. Modify Data")
+        print("4. Print Data")
+        print("5. Exit")
+        choice = input("Enter choice from 1 to 4")
+        if choice == "1":
+            masterData = getData(masterData)
+        elif choice == "2":
+            getData(masterData)
+        elif choice == "3":
+            masterData = modifyData(masterData)
+        elif choice == "4":
+            getData()
+        else:
+            break
+
+mainMenu()
+
+
+def printmessage(code):
+
+    for codes in codeList:
+        if codes [0] == code:
+            messagebox.showinfo(codes[1],codes[2])
+
+def loadFromFile(fileName):
+
+    container = []
+    with open(fileName,"r") as fhandler:
+        for record in fhandler:
+            formattedRecord = record.rstrip().rsptrip("\n").split(",")
+            container.append(formattedRecord)
+
+    return container  
+
+def loadData():
+
+    tenantData = []
+
+    userData = loadFromFile("tntList.txt")
+    apartmentData = loadFromFile("apartmentsList.txt")
+    codeData = loadFromFile("codeList.txt")
+
+    tenantData.append(userData)
+    tenantData.append(apartmentData)
+    tenantData.appened(codeData)
+
+    return data
+
+
+def printAlltenant(data):
+
+    try:
+        with open("tnt.txt","r") as fHandler:
+            if len(fHandler) > 0:
+
+                for record in fHandler:
+                    print (record)
+
+                return 0
+
+            else:
+                return 1
+
+    except IOError:
+
+        return 2
+
+def modifyDetalis(data):
+    try:
+        modify
+        write to file
+        return modified data
+    except IOError:
+        return 3
+
+def mainMenu()
+
+    tenantData = loadData()
+
+    while True:
+
+        print("1 Print")
+        print("2 Modify")
+        choice = input()
+
+        if choice =="1":
+            result = printAlltenant(tenantData)
+            printmessage(result,tenantData[2])
+
+        elif choice == "2":
+            result = modifyDetalis(tenantData)
+
+            tenantData = result if printMessage(result,tenantData[2]) != 4 else printMessage(result,tenantData[2])      
+
+            
+mainMenu()
