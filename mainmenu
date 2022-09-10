@@ -1,233 +1,8 @@
-print "Hello" 
-
-username = #add a List
-password = #add a List
-currentMenuState = 'login'
-
-while currentMenuState == 'login':
-  userLoginName = str(input("Enter your username: "))
-  userLoginPassword = str(input("Enter the password for the account"))
-  if userLoginName != username and userLoginPassword != password or userLoginName == username and userLoginPassword != password or userLoginName != username and userLoginPassword == password:
-        print("Username or Password Error")
-        continue
-  else:
-        currentMenuState = 'menu'
-        print ('You have successfully login')
-        print ("Hello", str(userLoginName) "Welcome to the Tenant Management System.")
-
-if userLoginName == username and userLoginPassword == password:
-  while True:
-    print("1. Get Data")
-    print("2. Save Date")
-    print("3. Print report")
-    print("4. Viewing")
-    print("5. Modify")
-    print("6. Close")
-    Operation = input("Enter choice from 1-6: ")
-    if Operation == "1"
-      GetData()
-      continue
-    elif Operation == "2"
-      SaveData()
-      continue
-    elif Operation == "3"
-      PrintReport()
-      continue
-    elif Operation == "4"
-      View()
-      continue
-    elif Operation == "5"
-      Modify()
-      continue
-    elif Operation == "6"
-      break
-      
-      
-      
-      
-      
-      
-def isNameValid(mName):
-    mName = mName.strip()
-    if len(mName) < 1:
-        return False
-    for character in mName:
-        if character.isdigit():
-            return False
-
-    return True
-
-def getName():
-
-    name = None
-    while True:
-        name = input("Enter Your Name")
-
-        if not isNameValid(name):
-            print("Invalid to Input....Press any key to continue, [X] to Logout")
-            choice = input("[C/X]")
-            if choice == "X":
-                break
-            else:
-                continue
-    return name
-
-def getData(tenantlist):
-
-    record=[]
-    while True:
-
-    name = getName()
-    IC = getIC
-    PN = getPN
-    gender = get
-
-    IC_number = input("Enter Your IC")
-    PN = input("Enter Your Phone Number")
-    gender = input("Enter Gender")
-    email = input("Enter Your Email")
-    POB = input("Enter Your Place Or Birth")
-    COB = input("Enter Your City Of Birth")
-
-    record.append(name)
-    record.append(IC_number)
-    record.append(PN)
-    record.append(email)
-    record.append(POB)
-    record.append(COB)
-    tenantlist.append(record)
-
-    return tenantlist
-
-def saveData(tenantlist):
-    pass
- #   with open (not)
-  #      for record in tenantlist:
-   #         for item in record
-
-def modifiedData
-
-    pass 
-
-def printReport
-
-    pass
-
-def loadData():    
-
-    tenantlist=[]
-    with open("tntList.txt","r") as loadFile:
-        for record in loadFile.readlines():
-            recordAsList = record.split(",")
-            tenantlist.append(recordAsList)
-
-    return tenantlist
-
-def mainMenu():
-    masterData = loadData()
-
-    while True:
-        print("1. Get Data")
-        print("2. Sava Data")
-        print("3. Modify Data")
-        print("4. Print Data")
-        print("5. Exit")
-        choice = input("Enter choice from 1 to 4")
-        if choice == "1":
-            masterData = getData(masterData)
-        elif choice == "2":
-            getData(masterData)
-        elif choice == "3":
-            masterData = modifyData(masterData)
-        elif choice == "4":
-            getData()
-        else:
-            break
-
-mainMenu()
-
-
-def printmessage(code):
-
-    for codes in codeList:
-        if codes [0] == code:
-            messagebox.showinfo(codes[1],codes[2])
-
-def loadFromFile(fileName):
-
-    container = []
-    with open(fileName,"r") as fhandler:
-        for record in fhandler:
-            formattedRecord = record.rstrip().rsptrip("\n").split(",")
-            container.append(formattedRecord)
-
-    return container  
-
-def loadData():
-
-    tenantData = []
-
-    userData = loadFromFile("tntList.txt")
-    apartmentData = loadFromFile("apartmentsList.txt")
-    codeData = loadFromFile("codeList.txt")
-
-    tenantData.append(userData)
-    tenantData.append(apartmentData)
-    tenantData.appened(codeData)
-
-    return data
-
-
-def printAlltenant(data):
-
-    try:
-        with open("tnt.txt","r") as fHandler:
-            if len(fHandler) > 0:
-
-                for record in fHandler:
-                    print (record)
-
-                return 0
-
-            else:
-                return 1
-
-    except IOError:
-
-        return 2
-
-def modifyDetalis(data):
-    try:
-        modify
-        write to file
-        return modified data
-    except IOError:
-        return 3
-
-def mainMenu()
-
-    tenantData = loadData()
-
-    while True:
-
-        print("1 Print")
-        print("2 Modify")
-        choice = input()
-
-        if choice =="1":
-            result = printAlltenant(tenantData)
-            printmessage(result,tenantData[2])
-
-        elif choice == "2":
-            result = modifyDetalis(tenantData)
-
-            tenantData = result if printMessage(result,tenantData[2]) != 4 else printMessage(result,tenantData[2])      
-
-            
-mainMenu()
-
-
-
+# Cheng Zi Ming
+# TP064400
+# Ang Zheng Wei
+# TP064445
+import datetime
 
 
 def home():
@@ -265,6 +40,16 @@ def admin_login():
     if admin_username == 'david12' and admin_password == 'david23' \
             or admin_username == 'john12' and admin_password == 'john23':
         print("Login Successful")
+        loglist = []
+        current_time = datetime.datetime.now()
+        login = current_time.strftime("%y-%m-%d %H:%M:%S")
+        loglist.append(login)
+        with open("logfile.txt", "a") as fhandler:
+            for record in loglist:
+                for item in record:
+                    fhandler.write(item)
+                fhandler.write("\n")
+        fhandler.close()
         admin_homepage()
 
     else:
@@ -287,25 +72,41 @@ def admin_homepage():
     print("Welcome to admin home page")
     print("---------------------------------------------------------")
 
-    print("Menu")
-    print("[1]Add Details to Apartment or Customer")
-    print("[2]View all records of Apartment or Customers")
-    print("[3]Modify Apartment or CustomerDetails")
-    print("[7]Search Apartment record")
-    print("[8]Search Customer Record")
-    print("[9]Return Rented Apartment")
-    print("[0]Exit")
+    while True:
+        print("Menu")
+        print("[1]Add Details to Apartment or Customer")
+        print("[2]View all records of Apartment or Customers")
+        print("[3]Modify Apartment or CustomerDetails")
+        print("[4]Search Apartment and customer record")
+        print("[5]Delete Apartment or customer details")
+        print("[0]Exit")
 
-    choice = input("Please select your choice: ")
+        choice = input("Please select your choice: ")
 
-    if choice == '1':
-        add()
-    elif choice == '2':
-        view()
-    elif choice == '3':
-        modify()
-    elif choice == '4':
-        search()
+        if choice == '1':
+            add()
+        elif choice == '2':
+            view()
+        elif choice == '3':
+            modify()
+        elif choice == '4':
+            search()
+        elif choice == '5':
+            delete()
+        elif choice == '6':
+            home()
+            loglist = []
+            end_time = datetime.datetime.now()
+            logout = end_time.strftime("%y-%m-%d %H:%M:%S")
+            loglist.append(logout)
+            print(loglist)
+            with open("logfile.txt", "a") as fhandler:
+                for record in loglist:
+                    for item in record:
+                        fhandler.write(item)
+                    fhandler.write("\n")
+        else:
+            print("Invalid Option")
 
 
 def add():
@@ -356,7 +157,6 @@ def add_apartment():
 
     print("[1]Press 1 to continue add apartment details")
     print("[2]Press 2 to go back to Admin Menu")
-    print("[3]Press 3 to go back to home page")
 
     while True:
         choice = input("select your choice:")
@@ -365,8 +165,6 @@ def add_apartment():
             add_apartment()
         elif choice == '2':
             admin_homepage()
-        elif choice == '3':
-            home()
         else:
             print("Invalid Option")
 
@@ -377,11 +175,26 @@ def add_tenant():
     print("Enter the following details")
     record = []
     tenantlist = []
+
+    while True:
+        tenantID = input("TenantID: ")
+        if validateID(tenantID) != True:
+            print(validateID(tenantID))
+        else:
+            record.append(tenantID)
+            print(record)
+            break
+
     fullname = input("Enter your full name: ")
     record.append(fullname)
+    while True:
+        ic = input("IC number: ")
+        if validateic(ic) == True:
+            record.append(ic)
+            break
+        else:
+            print(validateic(ic))
 
-    ic = input("IC number: ")
-    record.append(ic)
 
     while True:
         dob = input("Enter your date of birth [dd/mm/yyyy]: ")
@@ -399,14 +212,32 @@ def add_tenant():
         else:
             print(validategender(gender))
 
-    phone_number = input("PhoneNumber: ")
-    record.append(phone_number)
+    while True:
+        phone_number = input("PhoneNumber:")
+        if validateph(phone_number) == True:
+            record.append(phone_number)
+            break
+        else:
+            print(validateph(phone_number))
 
-    email = input("Email: ")
-    record.append(email)
 
-    place_of_birth = input("Place of Birth: ")
-    record.append(place_of_birth)
+    while True:
+        email = input("Email:")
+        if validateemail(email) != True:
+            print(validateemail(email))
+        else:
+            record.append(email)
+            print(record)
+            break
+
+    while True:
+        pob = input("Place of Birth:")
+        if validatepob(pob) == True:
+            record.append(pob)
+            print(record)
+            break
+        else:
+            print(validatepob(pob))
 
     work_history = input("Work History: ")
     record.append(work_history)
@@ -437,13 +268,27 @@ def add_tenant():
 
     tenantlist.append(record)
 
-    with open("TenantDetails.txt", "a") as fhandler:
+    with open("CurrentTenantDetails.txt", "a") as fhandler:
         for record in tenantlist:
             for item in record:
                 fhandler.write(item)
                 fhandler.write(",")
             fhandler.write("\n")
     fhandler.close()
+
+    print("[1]Press 1 to continue add apartment details")
+    print("[2]Press 2 to go back to Admin Menu")
+
+
+    while True:
+        choice = input("select your choice:")
+
+        if choice == '1':
+            add_apartment()
+        elif choice == '2':
+            admin_homepage()
+        else:
+            print("Invalid Option")
 
 
 def view():
@@ -481,28 +326,61 @@ def apartment_view():
             record += 1
     Apartment_file.close()
 
-    print("\n[1] Back to admin menu \n[2] Exit to home page")
-
     while True:
-        choice = input("Enter an option: ")
+        print("\n[1]Press 1 to view details of current tenant \n[2]Press 2 to view details of Past Tenant "
+              "\n[3]Back to Admin homepage")
+
+        choice = input("Choose your option: ")
 
         if choice == '1':
-            admin_homepage()
+            ctenant_view()
 
         elif choice == '2':
-            home()
+            ptenant_view()
+
+        elif choice == '3':
+            admin_homepage()
 
         else:
             print("Invalid Option")
 
-
 def ctenant_view():
     print("-------------------------------------------")
-    print("Customer record")
+    print("Current Tenant record")
     print("-------------------------------------------")
 
     record = 0
-    with open("TenantDetails.txt", "r") as Customer_file:
+    with open("CurrentTenantDetails.txt", "r") as Customer_file:
+        for Customer_record in Customer_file:
+            print("[", (record + 1), "]", Customer_record.rstrip().rstrip(","))
+            record += 1
+    Customer_file.close()
+
+    while True:
+        print("\n[1]Press 1 to view details of current tenant \n[2]Press 2 to view details of Past Tenant "
+              "\n[3]Back to Admin homepage")
+
+        choice = input("Choose your option: ")
+
+        if choice == '1':
+            ctenant_view()
+
+        elif choice == '2':
+            ptenant_view()
+
+        elif choice == '3':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+def ptenant_view():
+    print("-------------------------------------------")
+    print("Past Tenant record")
+    print("-------------------------------------------")
+
+    record = 0
+    with open("CurrentTenantDetails.txt", "r") as Customer_file:
         for Customer_record in Customer_file:
             print("[", (record + 1), "]", Customer_record.rstrip().rstrip(","))
             record += 1
@@ -511,22 +389,28 @@ def ctenant_view():
     print("\n[1] Back to admin menu \n[2] Exit to home page")
 
     while True:
-        choice = input("Enter an option: ")
+        print("\n[1]Press 1 to view details of current tenant \n[2]Press 2 to view details of Past Tenant "
+              "\n[3]Back to Admin homepage")
+
+        choice = input("Choose your option: ")
 
         if choice == '1':
-            admin_homepage()
+            ctenant_view()
 
         elif choice == '2':
-            home()
+            ptenant_view()
+
+        elif choice == '3':
+            admin_homepage()
 
         else:
             print("Invalid Option")
 
 
-
 def modify():
-    print("\n[1]Press 1 to modify details of Apartment \n[2]Press 2 to modify details of Customer "
-          "\n[3]Press 3 to go back")
+    print("\n[1]Modify details of Apartment \n[2]Modify details of current tenant "
+          "\n[3]Modify details of past tenant \n[4]Move Current Tenant to Past Tenant"
+          "\n[5]Move Past Tenant to Current Tenant \n[6]Back to Admin Homepage")
 
     choice = input("Choose your option: ")
 
@@ -534,9 +418,12 @@ def modify():
         modify_apartment()
 
     elif choice == '2':
-        modify_customer()
+        modify_ctenant()
 
     elif choice == '3':
+        modify_ptenant()
+
+    elif choice == '4':
         admin_homepage()
 
     else:
@@ -581,7 +468,7 @@ def modify_apartment():
 
     print("Changes has been made")
 
-    print("\n[1] Continue modify apartment details \n[2] Back to admin menu \n[3] Exit to home page")
+    print("\n[1] Continue modify apartment details \n[2] Back to admin menu")
 
     while True:
         choice = input("Enter an option: ")
@@ -592,15 +479,12 @@ def modify_apartment():
         elif choice == '2':
             admin_homepage()
 
-        elif choice == '3':
-            home()
-
         else:
             print("Invalid Option")
 
 
-def modify_customer():
-    customer_file = open("TenantDetails.txt", "r")
+def modify_ctenant():
+    customer_file = open("CurrentTenantDetails.txt", "r")
     customer_records = customer_file.readlines()
 
     record = 0
@@ -631,28 +515,160 @@ def modify_customer():
 
     customer_records[record_num - 1] = updated_record
 
-    with open("TenantDetails.txt", "w") as file:
+    with open("CurrentTenantDetails.txt", "w") as file:
         file.writelines(customer_records)
 
     print("Changes has been made")
 
-    print("\n[1] Continue modify Customer details \n[2] Back to admin menu \n[3] Exit to home page")
+    print("\n[1] Continue modify Customer details \n[2] Back to admin menu ")
 
     while True:
         choice = input("Enter an option: ")
 
         if choice == '1':
-            modify_customer()
+            modify_ctenant()
 
         elif choice == '2':
             admin_homepage()
 
-        elif choice == '3':
-            home()
+        else:
+            print("Invalid Option")
+
+
+def modify_ptenant():
+    customer_file = open("PastTenantDetails.txt", "r")
+    customer_records = customer_file.readlines()
+
+    record = 0
+    for line in customer_records:
+        print("[", (record + 1), "]", line.strip())
+        record += 1
+
+    record_num = int(input("Enter list number you wanted to edit: "))
+
+    print("\n")
+    customer_details = customer_records[record_num - 1].split(",")
+
+    element = 0
+
+    for record_element in customer_details:
+        print("[", (element + 1), "]", record_element)
+        element += 1
+
+    element_number = int(input("Enter element number you want to edit"))
+
+    print("Current element value:", customer_details[element_number - 1])
+
+    new_element_value = input("Enter new element value ")
+
+    customer_details[element_number - 1] = new_element_value
+
+    updated_record = ','.join(customer_details)
+
+    customer_records[record_num - 1] = updated_record
+
+    with open("PastTenantDetails.txt", "w") as file:
+        file.writelines(customer_records)
+
+    print("Changes has been made")
+
+    print("\n[1] Continue modify Customer details \n[2] Back to admin menu ")
+
+    while True:
+        choice = input("Enter an option: ")
+
+        if choice == '1':
+            modify_ptenant()
+
+        elif choice == '2':
+            admin_homepage()
 
         else:
             print("Invalid Option")
 
+
+def Current_to_Past():
+    customer_file = open("CurrentTenantDetails.txt", "r")
+    customer_records = customer_file.readlines()
+
+    record = 0
+    for line in customer_records:
+        print("[", (record + 1), "]", line.strip())
+        record += 1
+
+    record_num = int(input("Enter list number you wanted to edit: "))
+
+    customer_details = customer_records[record_num - 1]
+    while True:
+        with open("PastTenantDetails.txt", "a") as fhandler:
+            fhandler.write(customer_details)
+            fhandler.write("\n")
+        fhandler.close()
+
+        del customer_records[record_num - 1]
+        with open("CurrentTenantDetails.txt", "w") as file:
+            for line in customer_records:
+                file.write(line)
+
+    while True:
+        print("[1]Continue to move current tenant details \n[2] Move past tenant details to Current Tenant Details"
+              "\n[3]Back to admin Homepage")
+
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            Current_to_Past()
+
+        elif choice == '2':
+            Past_to_Current()
+
+        elif choice == '3':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+def Past_to_Current():
+    customer_file = open("PastTenantDetails.txt", "r")
+    customer_records = customer_file.readlines()
+
+    record = 0
+    for line in customer_records:
+        print("[", (record + 1), "]", line.strip())
+        record += 1
+
+    record_num = int(input("Enter list number you wanted to edit: "))
+
+    customer_details = customer_records[record_num - 1]
+    while True:
+        with open("CurrentTenantDetails.txt", "a") as fhandler:
+            fhandler.write(customer_details)
+            fhandler.write("\n")
+        fhandler.close()
+
+        del customer_records[record_num - 1]
+        with open("PastTenantDetails.txt", "w") as file:
+            for line in customer_records:
+                file.write(line)
+
+    while True:
+        print("[1]Move Pass tenant details to Current Tenant Details"
+              "\n[2]Move Current tenant details to Pass Tenant Details"
+              "\n[3]Back to admin Homepage")
+
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            Past_to_Current()
+
+        elif choice == '2':
+            Current_to_Past()
+
+        elif choice == '3':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
 
 def search():
     print("\n[1]Press 1 to Search details of Apartment \n[2]Press 2 to search details of Customer "
@@ -664,7 +680,7 @@ def search():
         search_apartment()
 
     elif choice == '2':
-        search_customer()
+        search_ctenant()
 
     elif choice == '3':
         admin_homepage()
@@ -675,77 +691,271 @@ def search():
 
 
 def search_apartment():
-    search_number = input("Please enter Apartment Number: ")
+    search_data = input("Please enter the keyword you want to search: ")
 
     apartment_file = open("Apartment.txt", "r")
     for apartmentnumber in apartment_file:
-        if search_number in apartmentnumber:
+        if search_data in apartmentnumber:
             apartmentnumber = apartmentnumber.strip()
             value = apartmentnumber.split(",")
-            print("Records: \n\t[1] Apartment Number \n\t[2] Tenant Name \n\t[3] Date of acquisition "
-                  "\n\t[4] Square footage \n\t[5] Expected rent \n\t[6] Rental history")
-            choice = input("please choose which record you want to search: ")
-            if choice == '1':
-                print("\nApartment Name:", value[0])
-            elif choice == '2':
-                print("\nTenant Name:", value[1])
-            elif choice == '3':
-                print("\nDate of acquisition:", value[2])
-            elif choice == '4':
-                print("\nSquare footage:", value[3])
-            elif choice == '5':
-                print("\nExpected Rent:", value[4])
-            elif choice == '6':
-                print("\nRental History:", value[5])
-            apartment_file.close()
-            option = input("Do you want to go back or exit?")
-            if option == 'B':
-                search_apartment()
+
+            if search_data == value[0]:
+                print("-------------------------------------------------------")
+                print("\nApartment Unit Number: ", value[0])
+                print("\nDate of Acquisition: ", value[1])
+                print("\nSquare Footage of Apartment: ", value[2])
+                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[1]:
+                print("-------------------------------------------------------")
+                print("\nApartment Unit Number: ", value[0])
+                print("\nDate of Acquisition: ", value[1])
+                print("\nSquare Footage of Apartment: ", value[2])
+                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[2]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
+            elif search_data == value[3]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
+            elif search_data == value[4]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
             else:
-                print("Goodbye")
-                admin_homepage()
-    else:
-        print("None Existence")
-        apartment_file.close()
+                print("Apartment does not exist")
 
+    while True:
+        print("\n[1]Press 1 to continue search details of apartment \n[2]Press 2 to go back to admin home page ")
 
-def search_customer():
-    search_number = input("Please enter Tenant ID Number: ")
+        choice = input("Choose your option: ")
 
-    tenant_file = open("Tenant.txt", "r")
+        if choice == '1':
+            search_apartment()
+
+        elif choice == '2':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+def search_ctenant():
+    search_data = input("Please enter the keyword you want to search: ")
+
+    tenant_file = open("CurrentTenantDetails.txt", "r")
     for tenantnumber in tenant_file:
-        if search_number in tenantnumber:
+        if search_data in tenantnumber:
             tenantnumber = tenantnumber.strip()
             value = tenantnumber.split(",")
-            print("Records: \n\t[1] Tenant Name \n\t[2] Occupation \n\t[3] Date of acquisition "
-                  "\n\t[4] Square footage \n\t[5] Expected rent \n\t[6] Rental history")
-            choice = input("please choose which record you want to search: ")
-            if choice == '1':
-                print("\nTenant Name:", value[0])
-            elif choice == '2':
-                print("\nOccupation:", value[1])
-            elif choice == '3':
-                print("\nDate of acquisition:", value[2])
-            elif choice == '4':
-                print("\nSquare footage:", value[3])
-            elif choice == '5':
-                print("\nExpected Rent:", value[4])
-            elif choice == '6':
-                print("\nRental History:", value[5])
-            tenant_file.close()
-            option = input("Do you want to go back or exit?")
-            if option == 'B':
-                search_customer()
+
+            if search_data == value[0]:
+                print("-------------------------------------------------------")
+                print("\nApartment Unit Number: ", value[0])
+                print("\nDate of Acquisition: ", value[1])
+                print("\nSquare Footage of Apartment: ", value[2])
+                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[1]:
+                print("-------------------------------------------------------")
+                print("\nApartment Unit Number: ", value[0])
+                print("\nDate of Acquisition: ", value[1])
+                print("\nSquare Footage of Apartment: ", value[2])
+                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[2]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
+            elif search_data == value[3]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
+            elif search_data == value[4]:
+                print("Apartment Unit Number: ", value[0])
+                print("Date of Acquisition: ", value[1])
+                print("Square Footage of Apartment: ", value[2])
+                print("Expected Rental of the Apartment Unit: ", value[3])
+                print("Previously Rented Tenant: ", value[4])
+
             else:
-                print("Goodbye")
-                admin_homepage()
+                print("Apartment does not exist")
+
+    while True:
+        print("\n[1]Press 1 to continue search details of current Tenant \n[2]Press 2 to go back to admin home page ")
+
+        choice = input("Choose your option: ")
+
+        if choice == '1':
+            search_ctenant()
+
+        elif choice == '2':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+
+def delete():
+    print("\n[1]Press 1 to delete details of Apartment \n[2]Press 2 to delete details of Customer "
+          "\n[3]Press 3 to go back")
+
+    choice = input("Choose your option: ")
+
+    if choice == '1':
+        delete_apartment()
+
+    elif choice == '2':
+        delete_tenant()
+
+    elif choice == '3':
+        admin_homepage()
+
     else:
-        print("None Existence")
-        tenant_file.close()
+        print("Invalid Option")
+        delete()
+
+
+def delete_apartment():
+    apartment_file = open("Apartment.txt", "r")
+    apartment_records = apartment_file.readlines()
+
+    record = 0
+    for line in apartment_records:
+        print("[", (record + 1), "]", line.strip())
+        record += 1
+
+    delete_num = int(input("Enter list number you wanted to delete: "))
+
+    if (delete_num <= len(apartment_records)):
+        del apartment_records[delete_num-1]
+        with open("Apartment.txt","w") as file:
+            for line in apartment_records:
+                file.write(line)
+
+    else:
+        print("Line not in file")
+        print("There is only", len(apartment_records), "lines.")
+
+
+    print("Changes has been made")
+
+    print("\n[1] Continue delete apartment details \n[2] Back to admin menu ")
+
+    while True:
+        choice = input("Enter an option: ")
+
+        if choice == '1':
+            delete_apartment()
+
+        elif choice == '2':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+
+
+def delete_tenant():
+    customer_file = open("CurrentTenantDetails.txt", "r")
+    customer_records = customer_file.readlines()
+
+    record = 0
+    for line in customer_records:
+        print("[", (record + 1), "]", line.strip())
+        record += 1
+
+    delete_num = int(input("Enter list number you wanted to delete: "))
+
+    if (delete_num <= len(customer_records)):
+        del customer_records[delete_num-1]
+        with open("CurrentTenantDetails.txt", "w") as file:
+            for line in customer_records:
+                file.write(line)
+
+    else:
+        print("Line not in file")
+        print("There is only", len(customer_records), "lines.")
+
+
+    print("Changes has been made")
+
+    print("\n[1] Continue delete tenant details \n[2] Back to admin menu")
+
+    while True:
+        choice = input("Enter an option: ")
+
+        if choice == '1':
+            delete_tenant()
+
+        elif choice == '2':
+            admin_homepage()
+
+        else:
+            print("Invalid Option")
+
+
+
+def validateID(tenantID):
+    tenant_file = open("LoginCredentials.txt", "r")
+    for tenantdetails in tenant_file:
+        tenantdetails = tenantdetails.strip()
+        v = tenantdetails.split(',')
+        if tenantID == v[0]:
+            reason = 'ID already existed'
+            return reason
+        else:
+            tenant_file.close()
+            return True
+
+def validateic(ic):
+    numdigit = 0
+    for num in ic:
+        if num.isdigit():
+            numdigit = numdigit + 1
+
+    if numdigit <= 0:
+        reason = 'IC must contain at least one number'
+        return reason
+
+    tenant_file = open("LoginCredentials.txt", "r")
+    for tenantdetails in tenant_file:
+        tenantdetails = tenantdetails.strip()
+        v = tenantdetails.split(',')
+        if ic == v[1]:
+            reason = 'IC already existed'
+            return reason
+        else:
+            tenant_file.close()
+            return True
 
 
 def validatedob(dob):
-    import datetime
 
     day, month, year = dob.split('/')
 
@@ -768,6 +978,39 @@ def validategender(gender):
             return True
         else:
             reason = 'choose between [M/F/O]'
+            return reason
+
+
+def validateph(phone_number):
+    numdigit = 0
+    for c in phone_number:
+        if c.isdigit():
+            numdigit = numdigit + 1
+            if numdigit <= 6:
+                reason = 'phone number must have at least 6 digit'
+                return reason
+            else:
+                return True
+
+
+def validateemail(email):
+    tenant_file = open("LoginCredentials.txt", "r")
+    for tenantdetails in tenant_file:
+        tenantdetails = tenantdetails.strip()
+        v = tenantdetails.split(',')
+        if email == v[1]:
+            reason = 'Username already existed'
+            return reason
+        else:
+            tenant_file.close()
+            return True
+
+def validatepob(pob):
+    for num in pob:
+        if num.isalpha():
+            return True
+        else:
+            reason = 'Place of Birth cannot contain digit'
             return reason
 
 
@@ -803,7 +1046,7 @@ def validate_username(username):
         reason = 'username must contain at least one number'
         return reason
 
-    tenant_file = open("TenantDetails.txt", "r")
+    tenant_file = open("CurrentTenantDetails.txt", "r")
     for tenantdetails in tenant_file:
         tenantdetails = tenantdetails.strip()
         v = tenantdetails.split(',')
@@ -850,170 +1093,4 @@ def validate_userpassword(password):
     else:
         return True
 
-
-# not suree
-def customer_login_page():
-    print("---------------------------------------------------------")
-    print("Welcome To Customer Login Page")
-    print("---------------------------------------------------------")
-    print("\n[1]Register an account \n[2]Login to your account \n[3]Back to home page")
-
-    option = input("Please enter an option:")
-    if option == '1':
-        customer_register()
-    elif option == '2':
-        customer_login()
-    elif option == '3':
-        home()
-    else:
-        print("Invalid Option")
-        customer_login_page()
-
-
-def customer_register():
-    print("---------------------------------------------------------")
-    print("Welcome To Customer Registration")
-    print("---------------------------------------------------------")
-
-    print("Enter the following details")
-    record = []
-    tenantlist = []
-    fullname = input("Enter your full name: ")
-    record.append(fullname)
-
-    ic = input("IC number: ")
-    record.append(ic)
-
-    while True:
-        dob = input("Enter your date of birth [dd/mm/yyyy]: ")
-        if validatedob(dob) == True:
-            record.append(dob)
-            break
-        else:
-            print(validatedob(dob))
-
-    while True:
-        gender = input("Gender [M/F/O]")
-        if validategender(gender) == True:
-            record.append(gender)
-            break
-        else:
-            print(validategender(gender))
-
-    phone_number = input("PhoneNumber: ")
-    record.append(phone_number)
-
-    email = input("Email: ")
-    record.append(email)
-
-    place_of_birth = input("Place of Birth: ")
-    record.append(place_of_birth)
-
-    work_history = input("Work History: ")
-    record.append(work_history)
-
-    currentemployer = input("Current Employer: ")
-    record.append(currentemployer)
-
-    income = input("Income: ")
-    record.append(income)
-
-    while True:
-        username = input("Username: ")
-        if validate_username(username) != True:
-            print(validate_username(username))
-        else:
-            record.append(username)
-            print(record)
-            break
-
-    while True:
-        password = input("Password: ")
-        if validate_userpassword(password) != True:
-            print(validate_userpassword(password))
-        else:
-            record.append(password)
-            print(record)
-            break
-
-    tenantlist.append(record)
-
-    with open("TenantDetails.txt", "a") as fhandler:
-        for record in tenantlist:
-            for item in record:
-                fhandler.write(item)
-                fhandler.write(",")
-            fhandler.write("\n")
-    fhandler.close()
-
-    print("\n[1]Login to your account \n[2]Back to home page")
-
-    while True:
-        option = input("Please enter an option:")
-        if option == '1':
-            customer_login()
-        elif option == '2':
-            home()
-        else:
-            print("Invalid Option")
-            customer_login_page()
-
-
-def customer_login():
-    print("---------------------------------------------------------")
-    print("Welcome To Customer Login Page")
-    print("---------------------------------------------------------")
-
-    username = input("Username: ")
-    password = input("Password: ")
-
-    tenant_file = open("TenantDetails.txt", "r")
-    for tenantdetails in tenant_file:
-        tenantdetails = tenantdetails.strip()
-        f = tenantdetails.split(',')
-        if username == f[10] and password == f[11]:
-            print("You have successfully login")
-            print("Welcome" + f[0])
-            customer_homepage()
-        else:
-            print("Login Failed")
-            print("Incorrect Username or Password")
-            while True:
-                print("\n[1]Try Again \n[2]Go back to Home Page")
-                choice = input("Choose and option: ")
-                if choice == '1':
-                    customer_login()
-                elif choice == '2':
-                    home()
-                else:
-                    print("Invalid Option")
-
-
-def customer_homepage():
-    print("---------------------------------------------------------")
-    print("Welcome To Customer Home Page")
-    print("---------------------------------------------------------")
-
-    print("\n[1]View List of Apartment \n[2]Select and Book an Apartment "
-          "\n[3]View Personal Rental History \n[4]Back to Home Page")
-    choice = input("Choose an option: ")
-    while True:
-        if choice == '1':
-            apartment_view()
-        elif choice == '2':
-            Booking()
-        elif choice == '3':
-            payment_History()
-        elif choice == '4':
-            home()
-        else:
-            print("Invalid Option")
-
-
-
-
-
-
-
-
-
+home()
