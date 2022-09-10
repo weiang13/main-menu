@@ -79,7 +79,7 @@ def admin_homepage():
         print("[3]Modify Apartment or CustomerDetails")
         print("[4]Search Apartment and customer record")
         print("[5]Delete Apartment or customer details")
-        print("[0]Exit")
+        print("[6]Exit")
 
         choice = input("Please select your choice: ")
 
