@@ -212,6 +212,20 @@ def add_apartment():
         else:
             print(validatetenantid(tenantId))
 
+    while True:
+        pay = input("Payment[pending/paid/any digit]: ")
+        if validatepay(pay) != True:
+            print(validatepay(pay))
+        else:
+            print("Press 1 to comfirm or other key to denied")
+            option = input("Choose an option: ")
+            if option == '1':
+                apartmentrecord.append(pay)
+                print(apartmentrecord)
+                break
+            else:
+                print()
+
 
     masterlist.append(apartmentrecord)
 
@@ -1192,11 +1206,22 @@ def validatesf(sf):
         if not ("0" <= char and char <= "9"):
             reason = 'Square footage must be digit'
             return reason
+        else:
+            return True
 
 def validaterent(prent):
     for char in prent:
         if not ("0" <= char and char <= "9"):
             reason = 'Square footage must be digit'
             return reason
+        else:
+            return True
 
+def validatepay(pay):
+    for char in pay:
+        if not ("0" <= char and char <= "9") or "paid" or"pending":
+            reason = 'Input not valid'
+            return reason
+        else:
+            return True
 home()
