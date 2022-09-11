@@ -10,7 +10,7 @@ def home():
     print("Welcome To Tenant Management System")
     print("---------------------------------------------------------")
 
-    print("\t[1] Admin [2]Close")
+    print("\t[1] Admin [2]Exit")
 
     while True:
 
@@ -19,7 +19,7 @@ def home():
             admin_login()
 
         elif choice == '2':
-            break
+            exit()
 
         else:
             print("Invalid option")
@@ -41,6 +41,8 @@ def admin_login():
             or admin_username == 'john12' and admin_password == 'john23':
         print("Login Successful")
         loglist = []
+        start = ("Starting time")
+        loglist.append(start)
         current_time = datetime.datetime.now()
         login = current_time.strftime("%y-%m-%d %H:%M:%S")
         loglist.append(login)
@@ -94,8 +96,9 @@ def admin_homepage():
         elif choice == '5':
             delete()
         elif choice == '6':
-            home()
             loglist = []
+            end = ("End time")
+            loglist.append(end)
             end_time = datetime.datetime.now()
             logout = end_time.strftime("%y-%m-%d %H:%M:%S")
             loglist.append(logout)
@@ -105,6 +108,8 @@ def admin_homepage():
                     for item in record:
                         fhandler.write(item)
                     fhandler.write("\n")
+            fhandler.close()
+            home()
         else:
             print("Invalid Option")
 
@@ -200,17 +205,14 @@ def add_apartment():
 
     while True:
         tenantId = input("Tenant ID: ")
-        if validatetenantid(tenantId) == True:
-            print("Press 1 to comfirm or other key to denied")
-            option = input("Choose an option: ")
-            if option == '1':
-                apartmentrecord.append(tenantId)
-                print(apartmentrecord)
-                break
-            else:
-                print()
+        print("Press 1 to comfirm or other key to denied")
+        option = input("Choose an option: ")
+        if option == '1':
+            apartmentrecord.append(tenantId)
+            print(apartmentrecord)
+            break
         else:
-            print(validatetenantid(tenantId))
+            print()
 
     while True:
         pay = input("Payment[pending/paid/any digit]: ")
@@ -406,6 +408,32 @@ def add_tenant():
             else:
                 print()
 
+    while True:
+        apartmentnum = input("Apartment Number: ")
+        print("Press 1 to comfirm or other key to denied")
+        option = input("Choose an option: ")
+        if option == '1':
+            record.append(apartmentnum)
+            print(record)
+            break
+        else:
+            print()
+
+
+    while True:
+        payment = input("Payment[pending/paid/any digit]: ")
+        if validatepayment(payment) != True:
+            print(validatepayment(payment))
+        else:
+            print("Press 1 to comfirm or other key to denied")
+            option = input("Choose an option: ")
+            if option == '1':
+                record.append(payment)
+                print(record)
+                break
+            else:
+                print()
+
     tenantlist.append(record)
 
     with open("Tenant.txt", "a") as fhandler:
@@ -431,8 +459,9 @@ def add_tenant():
 
 
 def view():
-    print("\n[1]Press 1 to view details of Apartment \n[2]Press 2 to view details of Tenant "
-          "\n[3]Press 3 to View Past Tenant Details \n[4]Press 4 to go back")
+    print("\n[1]Press 1 to view details of Apartment \n[2]Press 2 to view details of all Tenant"
+          "\n[3]Press 3 to view Current Tenant Details"
+          "\n[4]Press 4 to View Past Tenant Details \n[5]Press 5 to go back")
 
     choice = input("Choose your option: ")
 
@@ -440,12 +469,15 @@ def view():
         apartment_view()
 
     elif choice == '2':
-        ctenant_view()
+        tenant_view()
 
     elif choice == '3':
-        ptenant_view()
+        ctenant_view()
 
     elif choice == '4':
+        ptenant_view()
+
+    elif choice == '5':
         admin_homepage()
 
     else:
@@ -499,18 +531,21 @@ def tenant_view():
     Customer_file.close()
 
     while True:
-        print("\n[1]Press 1 to view details of current tenant \n[2]Press 2 to view details of Past Tenant "
-              "\n[3]Back to Admin homepage")
+        print("\n[1]Press 1 to view apartment details \n[2]Press 2 to view details of current tenant "
+              "\n[3]Press 3 to view details of Past Tenant \n[4]Back to Admin homepage")
 
         choice = input("Choose your option: ")
 
         if choice == '1':
-            ctenant_view()
+            apartment_view()
 
         elif choice == '2':
-            ptenant_view()
+            ctenant_view()
 
         elif choice == '3':
+            ptenant_view()
+
+        elif choice == '4':
             admin_homepage()
 
         else:
@@ -521,12 +556,20 @@ def ctenant_view():
     print("Current Tenant record")
     print("-------------------------------------------")
 
-    record = 0
-    with open("CurrentTenantDetails.txt", "r") as Customer_file:
-        for Customer_record in Customer_file:
-            print("[", (record + 1), "]", Customer_record.rstrip().rstrip(","))
-            record += 1
-    Customer_file.close()
+
+
+    idlist = []
+    with open("PastTenantDetails.txt", "r") as ptenant_file:
+        for ptenantdata in ptenant_file.readlines():
+            precord = ptenantdata.rstrip().strip(",").rsplit(",")
+            idlist.append(precord[0])
+
+    with open("Tenant.txt", "r") as tenant_file:
+        for tenantdata in tenant_file.readlines():
+            record = tenantdata.rstrip().strip(",").rsplit(",")
+            if record[0] not in idlist:
+                print(record)
+
 
     while True:
         print("\n[1]Press 1 to view details of all tenant \n[2]Press 2 to view details of Past Tenant "
@@ -551,12 +594,18 @@ def ptenant_view():
     print("Past Tenant record")
     print("-------------------------------------------")
 
-    record = 0
-    with open("CurrentTenantDetails.txt", "r") as Customer_file:
-        for Customer_record in Customer_file:
-            print("[", (record + 1), "]", Customer_record.rstrip().rstrip(","))
-            record += 1
-    Customer_file.close()
+    idlist = []
+    with open("Tenant.txt", "r") as tenant_file:
+        for tenantdata in tenant_file.readlines():
+            record = tenantdata.rstrip().strip(",").rsplit(",")
+            idlist.append(record[0])
+
+
+    with open("PastTenantDetails.txt", "r") as ptenant_file:
+        for ptenantdata in ptenant_file.readlines():
+            precord = ptenantdata.rstrip().strip(",").rsplit(",")
+            if precord[0] in idlist:
+                print(precord)
 
     print("\n[1] Back to admin menu \n[2] Exit to home page")
 
@@ -580,7 +629,7 @@ def ptenant_view():
 
 
 def modify():
-    print("\n[1]Modify details of Apartment \n[2]Modify details of current tenant "
+    print("\n[1]Modify details of Apartment \n[2]Modify details of tenant "
           "\n[3]Modify details of past tenant \n[4]Move Current Tenant to Past Tenant"
           "\n[5]Back to Admin Homepage")
 
@@ -640,7 +689,7 @@ def modify_apartment():
 
     with open("Apartment.txt", "w") as file:
         file.writelines(apartment_records)
-
+        file.close()
     print("Changes has been made")
 
     print("\n[1] Continue modify apartment details \n[2] Back to admin menu")
@@ -659,7 +708,7 @@ def modify_apartment():
 
 
 def modify_tenant():
-    customer_file = open("CurrentTenantDetails.txt", "r")
+    customer_file = open("Tenant.txt", "r")
     customer_records = customer_file.readlines()
 
     record = 0
@@ -690,7 +739,7 @@ def modify_tenant():
 
     customer_records[record_num - 1] = updated_record
 
-    with open("CurrentTenantDetails.txt", "w") as file:
+    with open("Tenant.txt", "w") as file:
         file.writelines(customer_records)
 
     print("Changes has been made")
@@ -747,7 +796,7 @@ def modify_ptenant():
 
     print("Changes has been made")
 
-    print("\n[1] Continue modify Customer details \n[2] Back to admin menu ")
+    print("\n[1] Continue modify past Tenant details \n[2] Back to admin menu ")
 
     while True:
         choice = input("Enter an option: ")
@@ -763,7 +812,7 @@ def modify_ptenant():
 
 
 def Current_to_Past():
-    customer_file = open("CurrentTenantDetails.txt", "r")
+    customer_file = open("Tenant.txt", "r")
     customer_records = customer_file.readlines()
 
     record = 0
@@ -833,42 +882,79 @@ def search_apartment():
             if search_data == value[0]:
                 print("-------------------------------------------------------")
                 print("\nApartment Number: ", value[0])
-                print("\nDate of Acquisition: ", value[1])
-                print("\nSquare Footage of Apartment: ", value[2])
-                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
                 print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
                 print("-------------------------------------------------------")
 
             elif search_data == value[1]:
                 print("-------------------------------------------------------")
-                print("\nApartment Unit Number: ", value[0])
-                print("\nDate of Acquisition: ", value[1])
-                print("\nSquare Footage of Apartment: ", value[2])
-                print("\nExpected Rental of the Apartment Unit: ", value[3])
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
                 print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
                 print("-------------------------------------------------------")
 
             elif search_data == value[2]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
+                print("-------------------------------------------------------")
 
             elif search_data == value[3]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
+                print("-------------------------------------------------------")
 
             elif search_data == value[4]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
+                print("-------------------------------------------------------")
 
+            elif search_data == value[5]:
+                print("-------------------------------------------------------")
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[6]:
+                print("-------------------------------------------------------")
+                print("\nApartment Number: ", value[0])
+                print("\nSquare Footage of Apartment: ", value[1])
+                print("\nExpected Rental of the Apartment Unit: ", value[2])
+                print("\nDate of Acquisition: ", value[3])
+                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nCurrent Tenant: ", value[5])
+                print("\nPayment: ", value[6])
+                print("-------------------------------------------------------")
             else:
                 print("Apartment does not exist")
 
@@ -897,43 +983,224 @@ def search_tenant():
 
             if search_data == value[0]:
                 print("-------------------------------------------------------")
-                print("\nApartment Number: ", value[0])
-                print("\nDate of Acquisition: ", value[1])
-                print("\nSquare Footage of Apartment: ", value[2])
-                print("\nExpected Rental of the Apartment Unit: ", value[3])
-                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
                 print("-------------------------------------------------------")
 
             elif search_data == value[1]:
                 print("-------------------------------------------------------")
-                print("\nApartment Unit Number: ", value[0])
-                print("\nDate of Acquisition: ", value[1])
-                print("\nSquare Footage of Apartment: ", value[2])
-                print("\nExpected Rental of the Apartment Unit: ", value[3])
-                print("\nPreviously Rented Tenant: ", value[4])
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
                 print("-------------------------------------------------------")
 
             elif search_data == value[2]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
 
             elif search_data == value[3]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
 
             elif search_data == value[4]:
-                print("Apartment Unit Number: ", value[0])
-                print("Date of Acquisition: ", value[1])
-                print("Square Footage of Apartment: ", value[2])
-                print("Expected Rental of the Apartment Unit: ", value[3])
-                print("Previously Rented Tenant: ", value[4])
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
 
+            elif search_data == value[5]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[6]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[7]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[8]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[9]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[10]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[11]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
+
+            elif search_data == value[12]:
+                print("-------------------------------------------------------")
+                print("\nTenant ID: ", value[0])
+                print("\nTenant Name: ", value[1])
+                print("\nIC NO: ", value[2])
+                print("\nDate of Birth: ", value[3])
+                print("\nGender: ", value[4])
+                print("\nPhone Number: ", value[5])
+                print("\nEmail: ", value[6])
+                print("\nPlace of Birth: ", value[7])
+                print("\nWork History: ", value[8])
+                print("\nCurrent Employer: ", value[9])
+                print("\nIncome: ", value[10])
+                print("\nApartment Number: ", value[11])
+                print("\nPayment: ", value[12])
+                print("-------------------------------------------------------")
             else:
                 print("Apartment does not exist")
 
@@ -1099,7 +1366,7 @@ def validatedob(dob):
 
     isvaliddate = True
     try:
-        datetime.datetime(int(day), int(month), int(year))
+        datetime.datetime(int(year), int(month), int(day))
     except ValueError:
         isvaliddate = False
 
@@ -1160,6 +1427,25 @@ def validateinc(income):
         else:
             return True
 
+def validateapart(apartmentnum):
+    Apartment_file = open("Apartment.txt", "r")
+    for Apartmentdetails in Apartment_file:
+        Apartmentdata = Apartmentdetails.strip()
+        v = Apartmentdata.split(',')
+        if apartmentnum == v[0]:
+            Apartment_file.close()
+            return True
+        else:
+            reason = "Apartment does not exist"
+            return reason
+
+def validatepayment(payment):
+    for char in payment:
+        if not ("0" <= char and char <= "9") or "paid" or"pending":
+            reason = 'Input not valid'
+            return reason
+        else:
+            return True
 
 def validateaparnum(apartmentnum):
     Apartment_file = open("Apartment.txt", "r")
@@ -1172,18 +1458,6 @@ def validateaparnum(apartmentnum):
         else:
             Apartment_file.close()
             return True
-
-def validatetenantid(tenantId):
-    Tenant_file = open("Tenant.txt", "r")
-    for Tenantdetails in Tenant_file:
-        Tenantdata = Tenantdetails.strip()
-        v = Tenantdata.split(',')
-        if tenantId == v[0]:
-            Tenant_file.close()
-            return True
-        else:
-            reason = "TenantID does not exist"
-            return reason
 
 
 def validatedoa(doa):
@@ -1224,4 +1498,5 @@ def validatepay(pay):
             return reason
         else:
             return True
+
 home()
