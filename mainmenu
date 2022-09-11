@@ -956,7 +956,7 @@ def search_apartment():
                 print("\nPayment: ", value[6])
                 print("-------------------------------------------------------")
             else:
-                print("Apartment does not exist")
+                print("Keyword does not exist")
 
     while True:
         print("\n[1]Press 1 to continue search details of apartment \n[2]Press 2 to go back to admin home page ")
@@ -1292,7 +1292,7 @@ def delete_tenant():
 
     if (delete_num <= len(customer_records)):
         del customer_records[delete_num-1]
-        with open("CurrentTenantDetails.txt", "w") as file:
+        with open("Tenant.txt", "w") as file:
             for line in customer_records:
                 file.write(line)
 
@@ -1467,7 +1467,7 @@ def validatedoa(doa):
     try:
         datetime.datetime(int(day), int(month), int(year))
     except ValueError:
-        isvaliddate = False
+        pass
 
     if isvaliddate:
         return True
