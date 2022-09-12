@@ -819,11 +819,10 @@ def Current_to_Past():
     record_num = int(input("Enter list number you wanted to edit: "))
 
     customer_details = customer_records[record_num - 1]
-    while True:
-        with open("PastTenantDetails.txt", "a") as fhandler:
-            fhandler.write(customer_details)
-            fhandler.write("\n")
-        fhandler.close()
+    with open("PastTenantDetails.txt", "a") as fhandler:
+        fhandler.write(customer_details)
+        fhandler.write("\n")
+
 
     print("Changes has been updated")
 
