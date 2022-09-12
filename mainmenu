@@ -75,7 +75,6 @@ def admin_homepage():
     print("---------------------------------------------------------")
 
     while True:
-        print("Menu")
         print("[1]Add Details to Apartment or Customer")
         print("[2]View all records of Apartment or Customers")
         print("[3]Modify Apartment or CustomerDetails")
@@ -102,7 +101,6 @@ def admin_homepage():
             end_time = datetime.datetime.now()
             logout = end_time.strftime("%y-%m-%d %H:%M:%S")
             loglist.append(logout)
-            print(loglist)
             with open("logfile.txt", "a") as fhandler:
                 for record in loglist:
                     for item in record:
@@ -149,7 +147,7 @@ def add_apartment():
                 print(apartmentrecord)
                 break
             else:
-                print("Enter your IC number")
+                print()
 
     while True:
         sf = input("Square footage: ")
@@ -487,7 +485,7 @@ def view():
 
 def apartment_view():
     print("-------------------------------------------")
-    print("Customer record")
+    print("Apartment record")
     print("-------------------------------------------")
 
     record = 0
@@ -606,8 +604,6 @@ def ptenant_view():
             precord = ptenantdata.rstrip().strip(",").rsplit(",")
             if precord[0] in idlist:
                 print(precord)
-
-    print("\n[1] Back to admin menu \n[2] Exit to home page")
 
     while True:
         print("\n[1]Press 1 to view details of current tenant \n[2]Press 2 to view details of all Tenant "
@@ -955,8 +951,8 @@ def search_apartment():
                 print("\nCurrent Tenant: ", value[5])
                 print("\nPayment: ", value[6])
                 print("-------------------------------------------------------")
-            else:
-                print("Keyword does not exist")
+    else:
+        print("Keyword does not exist")
 
     while True:
         print("\n[1]Press 1 to continue search details of apartment \n[2]Press 2 to go back to admin home page ")
@@ -1201,8 +1197,8 @@ def search_tenant():
                 print("\nApartment Number: ", value[11])
                 print("\nPayment: ", value[12])
                 print("-------------------------------------------------------")
-            else:
-                print("Apartment does not exist")
+    else:
+        print("Data does not exist")
 
     while True:
         print("\n[1]Press 1 to continue search details of Tenant \n[2]Press 2 to go back to admin home page ")
@@ -1319,16 +1315,18 @@ def delete_tenant():
 
 
 def validateID(tenantID):
-    tenant_file = open("Tenant.txt", "r")
-    for tenantdetails in tenant_file:
-        tenantdata = tenantdetails.strip()
-        v = tenantdata.split(',')
-        if tenantID == v[0]:
-            reason = 'ID already existed'
-            return reason
-        else:
-            tenant_file.close()
-            return True
+    list = []
+    with open ("Tenant.txt", "r") as tenant_file:
+        for tenantdata in tenant_file.readlines():
+            v = tenantdata.rstrip().strip(",").rsplit(",")
+            list.append(v[0])
+
+    if tenantID in list:
+        reason = 'ID already existed'
+        return reason
+    else:
+        tenant_file.close()
+        return True
 
 
 def validatename(fullname):
@@ -1349,28 +1347,30 @@ def validateic(ic):
         reason = "ic must contain at least 6 digit"
         return reason
 
-    tenant_file = open("Tenant.txt", "r")
-    for tenantdetails in tenant_file:
-        tenantdetails = tenantdetails.strip()
-        v = tenantdetails.split(',')
-        if ic == v[2]:
-            reason = 'IC already existed'
-            return reason
-        else:
-            tenant_file.close()
-            return True
+    list = []
+    with open("Tenant.txt", "r") as tenant_file:
+        for tenantdata in tenant_file.readlines():
+            v = tenantdata.rstrip().strip(",").rsplit(",")
+            list.append(v[2])
+
+    if ic in list:
+        reason = 'Ic already existed'
+        return reason
+    else:
+        tenant_file.close()
+        return True
 
 
 def validatedob(dob):
     day, month, year = dob.split('/')
 
-    isvaliddate = True
+    isValidDate = True
     try:
         datetime.datetime(int(year), int(month), int(day))
     except ValueError:
-        isvaliddate = False
+        isValidDate = False
 
-    if isvaliddate:
+    if (isValidDate):
         return True
     else:
         reason = "The date of birth is not valid"
@@ -1393,23 +1393,25 @@ def validateph(phone_number):
             return reason
 
     if len(phone_number) < 6:
-        reason = 'phone_number must contain 6 digit'
+        reason = 'phone number must contain atleast 6 digit'
         return reason
     else:
         return True
 
 
 def validateemail(email):
-    tenant_file = open("Tenant.txt", "r")
-    for tenantdetails in tenant_file:
-        tenantdetails = tenantdetails.strip()
-        v = tenantdetails.split(',')
-        if email == v[6]:
-            reason = 'email already existed'
-            return reason
-        else:
-            tenant_file.close()
-            return True
+    list = []
+    with open("Tenant.txt", "r") as tenant_file:
+        for tenantdata in tenant_file.readlines():
+            v = tenantdata.rstrip().strip(",").rsplit(",")
+            list.append(v[6])
+
+    if email in list:
+        reason = 'Email already existed'
+        return reason
+    else:
+        tenant_file.close()
+        return True
 
 
 def validatepob(pob):
@@ -1422,58 +1424,51 @@ def validatepob(pob):
 def validateinc(income):
     for char in income:
         if not ("0" <= char and char <= "9"):
-            reason = 'phone number must be digit'
+            reason = 'income must be digit'
             return reason
         else:
             return True
-
-def validateapart(apartmentnum):
-    Apartment_file = open("Apartment.txt", "r")
-    for Apartmentdetails in Apartment_file:
-        Apartmentdata = Apartmentdetails.strip()
-        v = Apartmentdata.split(',')
-        if apartmentnum == v[0]:
-            Apartment_file.close()
-            return True
-        else:
-            reason = "Apartment does not exist"
-            return reason
 
 def validatepayment(payment):
-    for char in payment:
-        if not ("0" <= char and char <= "9") or "paid" or"pending":
-            reason = 'Input not valid'
-            return reason
-        else:
-            return True
+    if payment == 'pending' or payment == 'paid':
+        return True
+    else:
+        for char in payment:
+            if not ("0" <= char and char <= "9"):
+                reason = 'Input not valid'
+                return reason
+            else:
+                return True
 
 def validateaparnum(apartmentnum):
-    Apartment_file = open("Apartment.txt", "r")
-    for Apartmentdetails in Apartment_file:
-        Apartmentdata = Apartmentdetails.strip()
-        v = Apartmentdata.split(',')
-        if apartmentnum == v[0]:
-            reason = 'Apartment Number already existed'
-            return reason
-        else:
-            Apartment_file.close()
-            return True
+    list = []
+    with open("Apartment.txt", "r") as Apartment_file:
+        for Apartmentdata in Apartment_file.readlines():
+            v = Apartmentdata.rstrip().strip(",").rsplit(",")
+            list.append(v[0])
 
+    if apartmentnum in list:
+        reason = 'Apartment Number already existed'
+        return reason
+    else:
+        Apartment_file.close()
+        return True
 
 def validatedoa(doa):
     day, month, year = doa.split('/')
 
-    isvaliddate = True
+    isValidDate = True
     try:
-        datetime.datetime(int(day), int(month), int(year))
+        datetime.datetime(int(year), int(month), int(day))
     except ValueError:
-        pass
+        isValidDate = False
 
-    if isvaliddate:
+    if (isValidDate):
         return True
     else:
         reason = "The date of acquisition is not valid"
         return reason
+
 
 def validatesf(sf):
     for char in sf:
@@ -1486,17 +1481,20 @@ def validatesf(sf):
 def validaterent(prent):
     for char in prent:
         if not ("0" <= char and char <= "9"):
-            reason = 'Square footage must be digit'
+            reason = 'Expected price must be digit'
             return reason
         else:
             return True
 
 def validatepay(pay):
-    for char in pay:
-        if not ("0" <= char and char <= "9") or "paid" or"pending":
-            reason = 'Input not valid'
-            return reason
-        else:
-            return True
+    if pay == 'pending' or pay == 'paid':
+        return True
+    else:
+        for char in pay:
+            if not ("0" <= char and char <= "9"):
+                reason = 'Input not valid'
+                return reason
+            else:
+                return True
 
 home()
